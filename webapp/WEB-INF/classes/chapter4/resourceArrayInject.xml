@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+   
+   <bean id="resourceBean1" class="cn.javass.spring.chapter4.bean.ResourceBean4">
+       <property name="resources">
+           <array>
+             <value>cn/javass/spring/chapter4/test1.properties</value>
+             <value>log4j.xml</value>
+           </array>
+       </property>
+   </bean>
+   <bean id="resourceBean2" class="cn.javass.spring.chapter4.bean.ResourceBean4">
+       <property name="resources" value="classpath*:META-INF/INDEX.LIST"/>
+   </bean>
+   <bean id="resourceBean3" class="cn.javass.spring.chapter4.bean.ResourceBean4">
+       <property name="resources">
+           <array>
+             <value>cn/javass/spring/chapter4/test1.properties</value>
+             <value>classpath*:META-INF/INDEX.LIST</value>
+           </array>
+       </property>
+   </bean>
+</beans>

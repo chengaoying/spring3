@@ -1,0 +1,64 @@
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <bean id="nonXADataSource" class="com.atomikos.jdbc.nonxa.AtomikosNonXADataSourceBean">
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+        <property name="url" value="jdbc:hsqldb:mem:test"/>
+        <property name="user" value="sa"/>
+        <property name="password" value=""/>
+        <property name="uniqueResourceName" value="jdbc/nonXADataSource"/>
+        <property name="poolSize" value="20"/>
+    </bean>
+    <!-- atomikos对hsqldb分布式支持不是很好 -->
+    <bean id="dataSource1" class="com.atomikos.jdbc.AtomikosDataSourceBean" 
+          init-method="init" destroy-method="close">
+        <property name="xaDataSourceClassName" value="org.hsqldb.jdbc.pool.JDBCXADataSource"/>
+        <property name="poolSize" value="20"/>
+        <property name="xaProperties">
+            <props>
+                <prop key="url">jdbc:hsqldb:mem:test1</prop>
+                <prop key="user">sa</prop>
+                <prop key="password"></prop>
+            </props>
+        </property>
+        <property name="uniqueResourceName" value="jdbc/test1"/>
+    </bean>   
+     
+    <bean id="dataSource2" class="com.atomikos.jdbc.AtomikosDataSourceBean" 
+          init-method="init" destroy-method="close">
+        <property name="xaDataSourceClassName" value="org.hsqldb.jdbc.pool.JDBCXADataSource"/>
+        <property name="poolSize" value="20"/>
+        <property name="xaProperties">
+            <props>
+                <prop key="url">jdbc:hsqldb:mem:test2</prop>
+                <prop key="user">sa</prop>
+                <prop key="password"></prop>
+            </props>
+        </property>
+        <property name="uniqueResourceName" value="jdbc/test2"/>
+    </bean>   
+     
+    <bean id="atomikosTransactionManager" 
+          class = "com.atomikos.icatch.jta.UserTransactionManager" 
+          init-method="init" destroy-method = "close">   
+       <!--  when close is called, should we force transactions to terminate or not? -->   
+       <property name="forceShutdown" value="true"/>   
+    </bean>   
+
+    <bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp"/>   
+   
+    <bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager">   
+        <property name="transactionManager">   
+            <ref bean="atomikosTransactionManager"/>   
+        </property>   
+        <property name="userTransaction">   
+            <ref bean="atomikosUserTransaction"/>   
+        </property>   
+    </bean>    
+
+</beans>
+
+

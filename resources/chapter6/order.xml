@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+           
+    
+    <aop:aspectj-autoproxy/>
+           
+     <bean id="pointcutService" class="cn.javass.spring.chapter6.service.impl.PointcutService"/>
+
+   <bean id="aspect1" class="cn.javass.spring.chapter6.aop.OrderAspect1"/>
+   <bean id="aspect2" class="cn.javass.spring.chapter6.aop.OrderAspect2"/>
+
+    
+    <aop:config>
+        <aop:pointcut expression="execution(* *())" id="pointcut"/>
+        
+        <aop:aspect ref="aspect1" order="1">
+         
+             <aop:before pointcut-ref="pointcut" 
+                         method="beforeAdvice1" />
+             <aop:before pointcut-ref="pointcut" 
+                         method="beforeAdvice2" />
+             
+                        
+             <aop:after-returning pointcut-ref="pointcut" 
+                                  method="afterReturningAdvice1" 
+                                  arg-names="retVal"
+                                  returning="retVal"/>
+                          
+             <aop:after-returning pointcut-ref="pointcut" 
+                                  method="afterReturningAdvice2" 
+                                  arg-names="retVal"
+                                  returning="retVal"/>
+                                                                   
+             <aop:after-throwing  pointcut-ref="pointcut" 
+                                  method="afterThrowingAdvice1" 
+                                  arg-names="exception"
+                                  throwing="exception"/>
+
+             
+             <aop:after-throwing  pointcut-ref="pointcut" 
+                                  method="afterThrowingAdvice2" 
+                                  arg-names="exception"
+                                  throwing="exception"/>
+             
+             <aop:after pointcut-ref="pointcut" 
+                        method="afterFinallyAdvice1"/>
+           
+
+             <aop:after pointcut-ref="pointcut" 
+                        method="afterFinallyAdvice2"/>                     
+
+             <aop:around pointcut-ref="pointcut" 
+                         method="aroundAdvice1"/>
+
+             <aop:around pointcut-ref="pointcut" 
+                         method="aroundAdvice2"/>
+                         
+        </aop:aspect>
+    </aop:config>
+
+        
+   
+</beans>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+           
+   <bean id="helloWorldService" class="cn.javass.spring.chapter6.service.impl.HelloWorldService"/>
+
+   <bean id="aspect" class="cn.javass.spring.chapter6.aop.HelloWorldAspect"/>
+
+   <bean id="beforeAdvice" class="cn.javass.spring.chapter6.aop.BeforeAdviceImpl"/>
+    
+    <aop:config>
+        <aop:advisor pointcut="execution(* cn.javass..*.sayAdvisorBefore(..))"
+                     advice-ref="beforeAdvice"/>
+        <aop:aspect ref="aspect">
+             <aop:before pointcut="execution(* cn.javass..*.sayBefore(..)) and args(param)" 
+                         method="beforeAdvice(java.lang.String)" 
+                         arg-names="param"/>
+             <aop:after-returning pointcut="execution(* cn.javass..*.sayAfterReturning(..))" 
+                                  method="afterReturningAdvice" 
+                                  arg-names="retVal"
+                                  returning="retVal"/>
+             <aop:after-throwing pointcut="execution(* cn.javass..*.sayAfterThrowing(..))" 
+                                  method="afterThrowingAdvice" 
+                                  arg-names="exception"
+                                  throwing="exception"/>
+
+             <aop:after pointcut="execution(* cn.javass..*.sayAfterFinally(..))" 
+                       method="afterFinallyAdvice"/>
+
+             <aop:around pointcut="execution(* cn.javass..*.sayAround(..))" 
+                         method="aroundAdvice"/>
+                         
+            <aop:declare-parents types-matching="cn.javass..*.IHelloWorldService+" 
+                                 implement-interface="cn.javass.spring.chapter6.service.IIntroductionService"
+                                 default-impl="cn.javass.spring.chapter6.service.impl.IntroductiondService"/>
+        </aop:aspect>
+    </aop:config>
+        
+   
+</beans>

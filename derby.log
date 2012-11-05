@@ -1,0 +1,12 @@
+----------------------------------------------------------------
+2011-01-13 06:36:10.500 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.5.1.1 - (764942): instance a816c00e-012d-7e16-a8c8-0000001813b0
+on database directory C:\Documents and Settings\Administrator\桌面\spring\source\spring\test1  
+
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+2011-01-13 06:36:11.421 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.5.1.1 - (764942): instance 601a400f-012d-7e16-a8c8-0000001813b0
+on database directory C:\Documents and Settings\Administrator\桌面\spring\source\spring\test2  
+
+Database Class Loader started - derby.database.classpath=''

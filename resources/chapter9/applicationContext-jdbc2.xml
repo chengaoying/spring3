@@ -1,0 +1,19 @@
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <!--使用该方式包装数据源，必须在最外层，targetDataSource 知道目标数据源-->
+    <bean id="dataSourceProxy" 
+          class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+      <property name="targetDataSource" ref="dataSource"/>
+    </bean>
+    
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">   
+        <property name="dataSource" ref="dataSourceProxy"/>
+    </bean>    
+    
+</beans>
+
+

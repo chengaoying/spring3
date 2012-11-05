@@ -1,0 +1,338 @@
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <bean id="userService" class="cn.javass.spring.chapter9.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="addressService"/>
+    </bean>
+
+    <bean id="addressService" class="cn.javass.spring.chapter9.service.impl.AddressServiceImpl">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    
+    
+    <!-- Required传播行为 开始-->
+    
+    <bean id="requiredUserServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.required.RequiredUserServiceImplWithSuccess">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiredAddressServiceWithSuccess"/>
+    </bean>
+
+    <bean id="requiredAddressServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.required.RequiredAddressServiceImplWithSuccess">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+
+    <bean id="requiredUserServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.required.RequiredUserServiceImplWithRuntimeException">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiredAddressServiceWithRuntimeException"/>
+    </bean>
+
+    <bean id="requiredAddressServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.required.RequiredAddressServiceImplWithRuntimeException">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <!-- Required传播行为 结束-->
+    
+
+    <!-- RequiresNew传播行为 开始-->
+    <bean id="requiresNewUserServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.requiresnew.RequiresNewUserServiceImplWithSuccess">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiresNewAddressServiceWithSuccess"/>
+    </bean>
+
+    <bean id="requiresNewAddressServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.requiresnew.RequiresNewAddressServiceImplWithSuccess">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+
+    <bean id="requiresNewUserServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.requiresnew.RequiresNewUserServiceImplWithRuntimeException">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiresNewAddressServiceWithRuntimeException"/>
+    </bean>
+
+    <bean id="requiresNewAddressServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.requiresnew.RequiresNewAddressServiceImplWithRuntimeException">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <!-- RequiresNew传播行为 结束-->
+
+    <!-- Required+Supports传播行为 开始-->
+    <bean id="requiredAndSupportsUserServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.supports.RequiredAndSupportsUserServiceImplWithSuccess">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiredAndSupportsAddressServiceWithSuccess"/>
+    </bean>
+
+    <bean id="requiredAndSupportsAddressServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.supports.RequiredAndSupportsAddressServiceImplWithSuccess">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+
+    <bean id="requiredAndSupportsUserServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.supports.RequiredAndSupportsUserServiceImplWithRuntimeException">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiredAndSupportsAddressServiceWithRuntimeException"/>
+    </bean>
+
+    <bean id="requiredAndSupportsAddressServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.supports.RequiredAndSupportsAddressServiceImplWithRuntimeException">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <!-- Required+Supports传播行为 结束-->
+
+    <!-- Required+Supports传播行为 开始-->
+    <bean id="supportsAndSupportsUserServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.supports.SupportsAndSupportsUserServiceImplWithSuccess">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="supportsAndSupportsAddressServiceWithSuccess"/>
+    </bean>
+
+    <bean id="supportsAndSupportsAddressServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.supports.SupportsAndSupportsAddressServiceImplWithSuccess">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+
+    <bean id="supportsAndSupportsUserServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.supports.SupportsAndSupportsUserServiceImplWithRuntimeException">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="supportsAndSupportsAddressServiceWithRuntimeException"/>
+    </bean>
+
+    <bean id="supportsAndSupportsAddressServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.supports.SupportsAndSupportsAddressServiceImplWithRuntimeException">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <!-- Required+Supports传播行为 结束-->
+
+    <!-- Required+NutSopported传播行为 开始-->
+    <bean id="requiredAndNotSupportedUserServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.notsupported.RequiredAndNotSupportedUserServiceImplWithSuccess">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiredAndNotSupportedAddressServiceWithSuccess"/>
+    </bean>
+
+    <bean id="requiredAndNotSupportedAddressServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.notsupported.RequiredAndNotSupportedAddressServiceImplWithSuccess">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+
+    <bean id="requiredAndNotSupportedUserServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.notsupported.RequiredAndNotSupportedUserServiceImplWithRuntimeException">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiredAndNotSupportedAddressServiceWithRuntimeException"/>
+    </bean>
+
+    <bean id="requiredAndNotSupportedAddressServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.notsupported.RequiredAndNotSupportedAddressServiceImplWithRuntimeException">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <!-- Required+NotSupported传播行为 结束-->
+
+    <!-- Supports+NotSupported传播行为 开始-->
+    <bean id="supportsAndNotSupportedUserServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.notsupported.SupportsAndNotSupportedUserServiceImplWithSuccess">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="supportsAndNotSupportedAddressServiceWithSuccess"/>
+    </bean>
+
+    <bean id="supportsAndNotSupportedAddressServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.notsupported.SupportsAndNotSupportedAddressServiceImplWithSuccess">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+
+    <bean id="supportsAndNotSupportedUserServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.notsupported.SupportsAndNotSupportedUserServiceImplWithRuntimeException">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="supportsAndNotSupportedAddressServiceWithRuntimeException"/>
+    </bean>
+
+    <bean id="supportsAndNotSupportedAddressServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.notsupported.SupportsAndNotSupportedAddressServiceImplWithRuntimeException">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <!-- Supports+NotSupported传播行为 结束-->
+
+    <!-- Required+Mandatory传播行为 开始-->
+    <bean id="requiredAndMandatoryUserServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.mandatory.RequiredAndMandatoryUserServiceImplWithSuccess">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiredAndMandatoryAddressServiceWithSuccess"/>
+    </bean>
+
+    <bean id="requiredAndMandatoryAddressServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.mandatory.RequiredAndMandatoryAddressServiceImplWithSuccess">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+
+    <bean id="requiredAndMandatoryUserServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.mandatory.RequiredAndMandatoryUserServiceImplWithRuntimeException">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiredAndMandatoryAddressServiceWithRuntimeException"/>
+    </bean>
+
+    <bean id="requiredAndMandatoryAddressServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.mandatory.RequiredAndMandatoryAddressServiceImplWithRuntimeException">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <!-- Required+Mandatory传播行为 结束-->
+
+    <!-- Supports+Mandatory传播行为 开始-->
+
+    <bean id="supportsAndMandatoryUserServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.mandatory.SupportsAndMandatoryUserServiceImplWithRuntimeException">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="supportsAndMandatoryAddressServiceWithRuntimeException"/>
+    </bean>
+
+    <bean id="supportsAndMandatoryAddressServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.mandatory.SupportsAndMandatoryAddressServiceImplWithRuntimeException">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <!-- Supports+Mandatory传播行为 结束-->
+
+
+    <!-- Required+Never传播行为 开始-->
+
+    <bean id="requiredAndNeverUserServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.never.RequiredAndNeverUserServiceImplWithRuntimeException">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiredAndNeverAddressServiceWithRuntimeException"/>
+    </bean>
+
+    <bean id="requiredAndNeverAddressServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.never.RequiredAndNeverAddressServiceImplWithRuntimeException">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <!-- Required+Never传播行为 结束-->
+
+    <!-- Supports+Never传播行为 开始-->
+
+    <bean id="supportsAndNeverUserServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.never.SupportsAndNeverUserServiceImplWithSuccess">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="supportsAndNeverAddressServiceWithSuccess"/>
+    </bean>
+
+    <bean id="supportsAndNeverAddressServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.never.SupportsAndNeverAddressServiceImplWithSuccess">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <bean id="supportsAndNeverUserServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.never.SupportsAndNeverUserServiceImplWithRuntimeException">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="supportsAndNeverAddressServiceWithRuntimeException"/>
+    </bean>
+
+    <bean id="supportsAndNeverAddressServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.never.SupportsAndNeverAddressServiceImplWithRuntimeException">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <!-- Supports+Never传播行为 结束-->
+
+
+    <!-- Required+Nested传播行为 开始-->
+
+    <bean id="requiredAndNestedUserServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.nested.RequiredAndNestedUserServiceImplWithSuccess">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiredAndNestedAddressServiceWithSuccess"/>
+    </bean>
+
+    <bean id="requiredAndNestedAddressServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.nested.RequiredAndNestedAddressServiceImplWithSuccess">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <bean id="requiredAndNestedUserServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.nested.RequiredAndNestedUserServiceImplWithRuntimeException">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="requiredAndNestedAddressServiceWithRuntimeException"/>
+    </bean>
+
+    <bean id="requiredAndNestedAddressServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.nested.RequiredAndNestedAddressServiceImplWithRuntimeException">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <!-- Required+Nested传播行为 结束-->
+
+
+    <!-- Nested+Nested传播行为 开始-->
+    <bean id="nestedAndNestedUserServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.nested.NestedAndNestedUserServiceImplWithSuccess">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="nestedAndNestedAddressServiceWithSuccess"/>
+    </bean>
+
+    <bean id="nestedAndNestedAddressServiceWithSuccess" class="cn.javass.spring.chapter9.service.impl.nested.NestedAndNestedAddressServiceImplWithSuccess">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <bean id="nestedAndNestedUserServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.nested.NestedAndNestedUserServiceImplWithRuntimeException">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="nestedAndNestedAddressServiceWithRuntimeException"/>
+    </bean>
+
+    <bean id="nestedAndNestedAddressServiceWithRuntimeException" class="cn.javass.spring.chapter9.service.impl.nested.NestedAndNestedAddressServiceImplWithRuntimeException">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+
+    <!-- Nested+Nested传播行为 结束-->
+    
+    
+    <!-- readonly事务 开始-->
+     <bean id="readonlyUserService" class="cn.javass.spring.chapter9.service.impl.ReadOnlyUserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="txManager"/>
+        <property name="addressService" ref="readonlyAddressService"/>
+    </bean>
+
+    <bean id="readonlyAddressService" class="cn.javass.spring.chapter9.service.impl.ReadOnlyAddressServiceImpl">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="txManager"/>
+    </bean>
+    <!-- readonly事务 结束-->
+    
+    
+     <bean id="targetUserService" class="cn.javass.spring.chapter9.service.impl.ConfigUserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+        <property name="addressService" ref="targetAddressService"/>
+    </bean>
+
+    <bean id="targetAddressService" class="cn.javass.spring.chapter9.service.impl.ConfigAddressServiceImpl">
+        <property name="addressDao" ref="addressDao"/>
+    </bean>
+    
+    
+    <bean id="transactionProxyParent" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+        <property name="transactionManager" ref="txManager"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="save*">PROPAGATION_REQUIRED,ISOLATION_READ_COMMITTED,timeout_10,-Exception,+NoRollBackException</prop>
+                <prop key="*">PROPAGATION_REQUIRED,ISOLATION_READ_COMMITTED,readOnly</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="proxyUserService" parent="transactionProxyParent">
+        <property name="target" ref="targetUserService"/>
+    </bean>
+
+    <bean id="proxyAddressService" parent="transactionProxyParent">
+        <property name="target" ref="targetAddressService"/>
+    </bean>
+    
+    
+</beans>
+
+

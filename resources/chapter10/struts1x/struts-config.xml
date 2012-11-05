@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config> 
+    <action-mappings>
+
+        <action path="/hello" type="cn.javass.spring.chapter10.struts1x.action.HelloWorldAction1">
+            <forward name="hello" path="/WEB-INF/jsp/hello.jsp"/>
+        </action>
+
+        <action path="/hello2" type="cn.javass.spring.chapter10.struts1x.action.HelloWorldAction2">
+            <forward name="hello" path="/WEB-INF/jsp/hello.jsp"/>
+        </action>
+        <action path="/hello3" type="org.springframework.web.struts.DelegatingActionProxy">
+            <forward name="hello" path="/WEB-INF/jsp/hello.jsp"/>
+        </action>
+
+        <action path="/hello4">
+            <forward name="hello" path="/WEB-INF/jsp/hello.jsp"/>
+        </action>
+    </action-mappings>
+    
+    <controller>
+        <set-property property="processorClass" 
+            value="org.springframework.web.struts.DelegatingRequestProcessor"/>
+    </controller>
+    
+    
+     <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+        <set-property property="contextClass" value="org.springframework.web.context.support.XmlWebApplicationContext"/>
+        <set-property property="contextConfigLocation" value="/WEB-INF/hello-servlet.xml"/>
+        <set-property property="namespace" value="hello"/>
+    </plug-in>
+</struts-config>

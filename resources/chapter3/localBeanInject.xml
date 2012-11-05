@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <!-- 注意父容器中也定义了id 为 helloApi的Bean -->
+    <bean id="helloApi" class="cn.javass.spring.chapter3.HelloImpl4">
+        <property name="index" value="2"/>
+        <property name="message" value="Hello Local!"/>
+    </bean>
+    <!-- 通过local注入 -->
+    <bean id="bean1" class="cn.javass.spring.chapter3.bean.HelloApiDecorator">
+        <constructor-arg index="0"><ref local="helloApi"/></constructor-arg>
+    </bean>
+    <!-- 通过parent注入 -->
+    <bean id="bean2" class="cn.javass.spring.chapter3.bean.HelloApiDecorator">
+        <property name="helloApi"><ref parent="helloApi"/></property>
+    </bean>
+
+</beans>

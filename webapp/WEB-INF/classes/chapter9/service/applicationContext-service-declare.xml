@@ -1,0 +1,39 @@
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+    
+    
+    <bean id="userService" class="cn.javass.spring.chapter9.service.impl.ConfigUserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+        <property name="addressService" ref="addressService"/>
+    </bean>
+
+    <bean id="addressService" class="cn.javass.spring.chapter9.service.impl.ConfigAddressServiceImpl">
+        <property name="addressDao" ref="addressDao"/>
+    </bean>
+    
+    
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED" isolation="READ_COMMITTED" />
+            <tx:method name="*" propagation="REQUIRED" isolation="READ_COMMITTED" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    
+    <aop:config>
+        <aop:pointcut id="serviceMethod" expression="execution(* cn..chapter9.service..*.*(..))"/>
+        <aop:advisor pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
+    </aop:config>
+    
+</beans>
+
+

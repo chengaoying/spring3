@@ -1,0 +1,86 @@
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <context:annotation-config/>
+    
+    <!-- 1、Spring自带依赖注入注解 -->
+    <bean id="testBean" class="cn.javass.spring.chapter12.TestBean">
+        <property name="message" ref="message"/>
+    </bean>
+
+    <bean id="testBean11" class="cn.javass.spring.chapter12.TestBean11"/>
+
+    <bean id="testBean12" class="cn.javass.spring.chapter12.TestBean12"/>
+    
+    <bean id="testBean13" class="cn.javass.spring.chapter12.TestBean13"/>
+    <bean id="testBean14" class="cn.javass.spring.chapter12.TestBean14"/>
+
+    <bean id="testBean21" class="cn.javass.spring.chapter12.TestBean21"/>
+    <bean id="testBean22" class="cn.javass.spring.chapter12.TestBean22"/>
+    <bean id="testBean23" class="cn.javass.spring.chapter12.TestBean23"/>
+
+    <bean id="testBean31" class="cn.javass.spring.chapter12.TestBean31"/>
+    <bean id="testBean32" class="cn.javass.spring.chapter12.TestBean32"/>
+    <bean id="testBean33" class="cn.javass.spring.chapter12.TestBean33"/>
+    <bean id="testBean34" class="cn.javass.spring.chapter12.TestBean34"/>
+    <bean id="testBean35" class="cn.javass.spring.chapter12.TestBean35"/>
+    <!-- 2、JSR-250依赖注入注解 -->
+    <bean id="testBean41" class="cn.javass.spring.chapter12.TestBean41"/>
+
+    <!-- 3、JSR-330依赖注入注解 -->
+    <bean id="testBean51" class="cn.javass.spring.chapter12.TestBean51"/>
+
+    <!-- 4、JPA依赖注入注解 -->
+    <import resource="classpath:chapter7/applicationContext-resources.xml"/>
+    <import resource="classpath:chapter8/applicationContext-jpa.xml"/>
+    <bean id="testBean61" class="cn.javass.spring.chapter12.TestBean61"/>
+    
+    <bean id="list" class="java.util.ArrayList">
+        <constructor-arg index="0">
+             <list value-type="java.lang.String">
+                <ref bean="message"/>
+                <ref bean="message"/>
+             </list>
+        </constructor-arg>        
+    </bean>
+    
+    <bean id="message" class="java.lang.String">
+        <constructor-arg index="0" value="hello"/>
+    </bean>
+    
+    
+    <bean id="mysqlDataSourceBean" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+         <qualifier value="mysqlDataSource"/>
+         <qualifier type="cn.javass.spring.chapter12.qualifier.Mysql"/>
+         <qualifier type="cn.javass.spring.chapter12.qualifier.DataSourceType">
+             <attribute key="ip" value="localhost"/>
+             <attribute key="database" value="MYSQL"/>
+         </qualifier>
+         <qualifier type="cn.javass.spring.chapter12.qualifier.JSR330Mysql"/>
+    </bean>
+    
+    <bean id="oracleDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+         <qualifier type="cn.javass.spring.chapter12.qualifier.Oracle"/>
+         <qualifier type="cn.javass.spring.chapter12.qualifier.DataSourceType">
+             <attribute key="ip" value="localhost"/>
+             <attribute key="database" value="ORACLE"/>
+         </qualifier>
+    </bean>
+    
+    
+    <bean id="customAutowireConfigurer" class="org.springframework.beans.factory.annotation.CustomAutowireConfigurer">
+        <property name="customQualifierTypes">
+            <set>
+                <value>cn.javass.spring.chapter12.qualifier.CustomQualifier</value>
+            </set>
+        </property>
+    </bean>
+    
+</beans>
+
+

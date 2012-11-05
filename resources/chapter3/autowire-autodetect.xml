@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd" >
+           
+    <bean class="cn.javass.spring.chapter2.helloworld.HelloImpl"/>
+    <!-- 自动装配候选者中的首选Bean-->
+    <bean class="cn.javass.spring.chapter2.helloworld.HelloImpl" primary="true"/>
+    <bean id="bean" 
+          class="cn.javass.spring.chapter3.bean.HelloApiDecorator" 
+          autowire="autodetect"/>
+          
+</beans>
